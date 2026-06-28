@@ -364,6 +364,72 @@ td:first-child { font-family: var(--display); font-style: italic; color: var(--p
 .asp.neutral b { color: var(--gold-deep); }
 
 /* ============================================================
+   КАРТЫ ТАРО (матрица судьбы)
+   ============================================================ */
+.tarot-spread { display: grid; gap: 24px; grid-template-columns: 1fr; }
+@media (min-width: 980px) { .tarot-spread { grid-template-columns: repeat(2, 1fr); } }
+
+.tarot-row {
+  display: flex; gap: 22px; align-items: flex-start;
+  background: var(--grad-card); border: 1px solid var(--border-warm);
+  border-radius: 18px; padding: 20px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.6), 0 18px 42px -28px var(--shadow-warm);
+}
+@media (max-width: 560px) { .tarot-row { flex-direction: column; align-items: center; text-align: center; } }
+.tc-reading { flex: 1; min-width: 0; }
+.tc-reading .cap {
+  font-family: var(--sans); font-size: 11.5px; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--copper); font-weight: 700; margin-bottom: 7px; display: flex; align-items: center; gap: 7px;
+}
+.tarot-row .cap::before { content: "◆"; color: var(--gold-leaf); font-size: 9px; }
+@media (max-width: 560px) { .tarot-row .cap { justify-content: center; } }
+.tc-reading .what {
+  font-family: var(--serif); font-size: 15.5px; font-style: italic; color: var(--ink-soft);
+  margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid var(--cream-muted);
+}
+.tc-reading .prose, .tc-reading .desc { font-family: var(--serif); font-size: 17px; color: var(--ink-body); line-height: 1.55; margin-bottom: 10px; }
+.tc-reading .tag { font-size: 14px; font-family: var(--sans); margin-top: 6px; }
+
+/* карта */
+.tarot-card {
+  position: relative; flex: 0 0 172px; width: 172px; aspect-ratio: 172/286;
+  border-radius: 13px; padding: 13px 11px 11px;
+  background:
+    radial-gradient(120% 78% at 50% 30%, rgba(242,201,142,0.18), transparent 60%),
+    linear-gradient(170deg, #FCF7EF 0%, #F3E3CC 100%);
+  box-shadow: inset 0 0 0 1px var(--gold-leaf),
+              0 16px 34px -18px var(--shadow-warm), 0 2px 0 rgba(255,255,255,.5);
+  display: flex; flex-direction: column; align-items: center; overflow: hidden;
+  transition: transform .32s cubic-bezier(.2,.7,.2,1), box-shadow .32s;
+}
+.tarot-card::before { /* внутренняя золотая рамка */
+  content: ""; position: absolute; inset: 6px; border: 1px solid var(--gold-leaf);
+  opacity: .5; border-radius: 9px; pointer-events: none;
+}
+.tarot-card::after { /* фактура «рубашки» */
+  content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .5;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22'%3E%3Cpath d='M11 0L22 11L11 22L0 11Z' fill='none' stroke='%23C9A24B' stroke-opacity='0.22' stroke-width='0.6'/%3E%3C/svg%3E");
+}
+.tarot-card:hover { transform: translateY(-7px) rotate(-.6deg);
+  box-shadow: inset 0 0 0 1px var(--gold-bright), 0 30px 56px -22px var(--shadow-warm); }
+.tc-numeral {
+  position: relative; z-index: 1; font-family: var(--display); font-style: italic;
+  font-size: 16px; color: var(--gold-deep); letter-spacing: 0.1em; margin-bottom: 2px;
+}
+.tc-art {
+  position: relative; z-index: 1; flex: 1; width: 100%;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--gold-deep); filter: drop-shadow(0 2px 5px rgba(176,122,74,.30));
+}
+.tc-art svg { width: 86%; height: 100%; max-height: 178px; }
+.tc-name {
+  position: relative; z-index: 1; font-family: var(--serif); font-variant: small-caps;
+  letter-spacing: 0.12em; font-weight: 600; font-size: 16px; color: var(--plum-card);
+  margin-top: 4px; padding-top: 7px; width: 84%; text-align: center;
+  border-top: 1px solid var(--gold-leaf);
+}
+
+/* ============================================================
    СУМЕРЕЧНЫЕ СЕГМЕНТЫ (октаграмма / колесо)
    ============================================================ */
 .dusk {
@@ -380,6 +446,32 @@ td:first-child { font-family: var(--display); font-style: italic; color: var(--p
 .dusk .starfield { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
 .dusk .star { position: absolute; border-radius: 50%; background: var(--gold-star);
   box-shadow: 0 0 6px var(--star-halo); }
+.dusk .nebula { display: none; }
+
+/* космическая фактура — только для .cosmic (натальная карта) */
+.dusk.cosmic { background:
+    radial-gradient(ellipse 130% 100% at 50% 6%, #5C3848 0%, #3F2838 30%, #2E1C2A 60%, #20121C 100%); }
+.dusk.cosmic .nebula {
+  display: block; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background:
+    radial-gradient(38% 30% at 23% 25%, rgba(193,106,82,0.34), transparent 70%),
+    radial-gradient(48% 38% at 79% 60%, rgba(150,112,156,0.40), transparent 72%),
+    radial-gradient(32% 26% at 62% 15%, rgba(201,154,82,0.26), transparent 70%),
+    radial-gradient(44% 52% at 48% 92%, rgba(120,72,104,0.34), transparent 72%);
+  filter: blur(10px); mix-blend-mode: screen;
+}
+.dusk.cosmic .nebula::before { /* млечная диагональная полоса */
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(118deg, transparent 36%, rgba(231,201,122,0.08) 46%,
+    rgba(251,233,184,0.16) 50%, rgba(231,201,122,0.08) 54%, transparent 64%);
+  filter: blur(3px);
+}
+.dusk.cosmic .nebula::after { /* звёздная пыль (тонкий шум) */
+  content: ""; position: absolute; inset: 0; opacity: 0.10; mix-blend-mode: screen;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='c'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23c)'/%3E%3C/svg%3E");
+}
+.dusk.cosmic { box-shadow: 0 30px 80px -34px rgba(20,10,18,.7), inset 0 0 0 1px rgba(201,162,75,.28),
+  inset 0 1px 0 rgba(240,213,138,.14); }
 .dusk-caption {
   position: relative; z-index: 2; text-align: center; color: var(--gold-pale);
   font-family: var(--serif); font-style: italic; font-size: 16px; margin-top: 8px;

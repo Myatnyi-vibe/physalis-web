@@ -21,8 +21,8 @@
     $(id).innerHTML = dress(html);
     if (window.PhysalisFX) window.PhysalisFX.decorate($(id));
   }
-  const dusk = (inner, caption) =>
-    `<div class="dusk reveal"><div class="starfield"></div>${inner}` +
+  const dusk = (inner, caption, extra) =>
+    `<div class="dusk reveal${extra ? " " + extra : ""}"><div class="starfield"></div><div class="nebula"></div>${inner}` +
     (caption ? `<div class="dusk-caption">${caption}</div>` : "") + `</div>`;
 
   // ---------- Вкладки ----------
@@ -55,14 +55,17 @@
     const m = meanings[a.num] || {};
     const what = posKey ? ct("positions", posKey) : "";
     const prose = ct("arcana", a.num);
-    return `<div class="subcard">
-      <div class="cap">${esc(cap)}</div>
-      ${what ? `<div class="what">${esc(what)}</div>` : ""}
-      <div class="arc">${a.num} · ${esc(a.name)}</div>
-      ${prose ? `<div class="prose">${esc(prose)}</div>`
-              : `<div class="desc">${esc(m.keywords || "")}</div>`}
-      ${m.plus ? `<div class="tag plus"><b>+ сильная сторона:</b> ${esc(m.plus)}</div>` : ""}
-      ${m.minus ? `<div class="tag minus"><b>− зона роста:</b> ${esc(m.minus)}</div>` : ""}
+    const card = window.PhysalisTarot ? window.PhysalisTarot.card(a.num, a.name) : "";
+    return `<div class="tarot-row reveal">
+      ${card}
+      <div class="tc-reading">
+        <div class="cap">${esc(cap)}</div>
+        ${what ? `<div class="what">${esc(what)}</div>` : ""}
+        ${prose ? `<div class="prose">${esc(prose)}</div>`
+                : `<div class="desc">${esc(m.keywords || "")}</div>`}
+        ${m.plus ? `<div class="tag plus"><b>+ сильная сторона:</b> ${esc(m.plus)}</div>` : ""}
+        ${m.minus ? `<div class="tag minus"><b>− зона роста:</b> ${esc(m.minus)}</div>` : ""}
+      </div>
     </div>`;
   }
 
@@ -102,7 +105,7 @@
 
       <div class="section-title">Личный квадрат</div>
       ${intro("positions", "sec_personal_square")}
-      <div class="cards">
+      <div class="tarot-spread">
         ${arcCard("Визитка · день", ps.day_visitka, mn, "day_visitka")}
         ${arcCard("Таланты · месяц", ps.month_talents, mn, "month_talents")}
         ${arcCard("Деньги · год", ps.year_money, mn, "year_money")}
@@ -112,7 +115,7 @@
 
       <div class="section-title">Родовой квадрат</div>
       ${intro("positions", "sec_ancestral_square")}
-      <div class="cards">
+      <div class="tarot-spread">
         ${arcCard("Линия мамы", an.nw_mother, mn, "nw_mother")}
         ${arcCard("Линия папы", an.ne_father, mn, "ne_father")}
         ${arcCard("Род · низ-лево", an.sw, mn, "sw_rod")}
@@ -121,7 +124,7 @@
 
       <div class="section-title">Предназначение</div>
       ${intro("positions", "sec_purpose")}
-      <div class="cards">
+      <div class="tarot-spread">
         ${arcCard("Личное · до ~40 лет", pu.personal_to40, mn, "purpose_personal")}
         ${arcCard("Социальное · после ~40", pu.social_from40, mn, "purpose_social")}
         ${arcCard("Главное предназначение", pu.main, mn, "purpose_main")}
@@ -129,7 +132,7 @@
 
       <div class="section-title">Кармический хвост</div>
       ${intro("positions", "sec_karmic_tail")}
-      <div class="cards">
+      <div class="tarot-spread">
         ${arcCard("Вход в отношения", kt.entry_relationships, mn, "tail_entry")}
         ${arcCard("Середина пути · самореализация", kt.middle_selfrealization, mn, "tail_middle")}
         ${arcCard("Главное испытание", kt.main_test, mn, "tail_test")}
@@ -228,7 +231,7 @@
         · ${esc($("n-time").value)} · ${esc(city)}</div>
       <div class="toolbar"><button class="btn-min" onclick="window.print()">Печать / PDF</button></div>
 
-      ${window.PhysalisWheel ? dusk(`<div class="wheel-wrap">${window.PhysalisWheel.makeWheel(R)}</div>`, "Колесо твоего неба · положения планет в час рождения") : ""}
+      ${window.PhysalisWheel ? dusk(`<div class="wheel-wrap">${window.PhysalisWheel.makeWheel(R)}</div>`, "Колесо твоего неба · положения планет в час рождения", "cosmic") : ""}
 
       <div class="section-title">Главные точки карты</div>
       ${concept("sunMoon")}
