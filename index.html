@@ -13,6 +13,20 @@
 </head>
 <body>
 
+<div id="gate">
+  <div class="starfield"></div>
+  <div class="gate-card">
+    <img class="gate-emblem" src="assets/physalis_hero.png" alt="Физалис">
+    <div class="eyebrow" style="justify-content:center"><span class="lantern">✦</span>&nbsp;Физалис</div>
+    <h2 class="gate-title">Тайная дверь</h2>
+    <p class="gate-sub">Чтобы заглянуть в карты судьбы, введите пароль.</p>
+    <input type="password" id="gate-pass" placeholder="Пароль" autocomplete="off" autocapitalize="off" spellcheck="false">
+    <button id="gate-go" class="go gate-go">Войти</button>
+    <div class="err" id="gate-err"></div>
+    <div class="gate-hint">Доступ по паролю</div>
+  </div>
+</div>
+
 <header class="hero">
   <div class="eyebrow"><span class="lantern">✦</span>&nbsp;Физалис · золотой час</div>
   <img class="hero-emblem glow-breathe" src="assets/physalis_hero.png" alt="Физалис">
@@ -105,5 +119,6 @@
 <script src="js/wheel.js"></script>
 <script src="js/fx.js"></script>
 <script src="js/app.js"></script>
+<script src="js/gate.js"></script>
 </body>
 </html>
