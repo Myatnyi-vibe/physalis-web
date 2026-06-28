@@ -5,7 +5,10 @@ const SIGNS = [
   "Овен", "Телец", "Близнецы", "Рак", "Лев", "Дева",
   "Весы", "Скорпион", "Стрелец", "Козерог", "Водолей", "Рыбы",
 ];
-const SIGN_GLYPH = ["♈", "♉", "♊", "♋", "♌", "♍", "♎", "♏", "♐", "♑", "♒", "♓"];
+// U+FE0E — селектор «текстового» начертания: не даёт глифам уехать в эмодзи.
+const TEXT_VS = "︎";
+const SIGN_GLYPH = ["♈", "♉", "♊", "♋", "♌", "♍", "♎", "♏", "♐", "♑", "♒", "♓"]
+  .map((g) => g + TEXT_VS);
 const ELEMENTS = ["Огонь", "Земля", "Воздух", "Вода"]; // по индексу знака % 4
 const SIGN_RULER = [
   "Марс", "Венера", "Меркурий", "Луна", "Солнце", "Меркурий",
@@ -109,7 +112,7 @@ function computeNatal(opts) {
     if (delta > 180) delta -= 360; if (delta < -180) delta += 360;
     const retro = body !== "Sun" && body !== "Moon" && delta < 0;
     const s = signOf(lon);
-    return { name, glyph, sense, lon, retro,
+    return { name, glyph: glyph + TEXT_VS, sense, lon, retro,
              sign: s.sign, signGlyph: s.glyph, element: s.element,
              degInSign: s.degInSign, fmt: fmtDeg(lon), ruler: SIGN_RULER[s.idx],
              signMeaning: SIGN_MEANING[s.idx] };

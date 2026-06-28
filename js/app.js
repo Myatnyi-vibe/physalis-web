@@ -5,7 +5,25 @@
   const C = () => window.PhysalisContent || {};
   const ct = (cat, key) => ((C()[cat] || {})[String(key)] || "");
   const intro = (cat, key) => { const t = ct(cat, key); return t ? `<p class="intro">${esc(t)}</p>` : ""; };
-  const concept = (key) => { const t = ct("natalConcepts", key); return t ? `<div class="concept">${esc(t)}</div>` : ""; };
+  const concept = (key) => { const t = ct("natalConcepts", key); return t ? `<div class="concept reveal">${esc(t)}</div>` : ""; };
+
+  // украшения: разделители под заголовками + классы появления
+  function dress(html) {
+    return html
+      .replace(/<div class="section-title">([\s\S]*?)<\/div>/g,
+        '<div class="section-title reveal">$1</div><div class="divider"><span class="mark">✦</span></div>')
+      .replace(/<div class="cards">/g, '<div class="cards reveal">')
+      .replace(/<table>/g, '<table class="reveal">')
+      .replace(/<div class="chips">/g, '<div class="chips reveal">')
+      .replace(/<div class="disclaimer">/g, '<div class="disclaimer reveal">');
+  }
+  function paint(id, html) {
+    $(id).innerHTML = dress(html);
+    if (window.PhysalisFX) window.PhysalisFX.decorate($(id));
+  }
+  const dusk = (inner, caption) =>
+    `<div class="dusk reveal"><div class="starfield"></div>${inner}` +
+    (caption ? `<div class="dusk-caption">${caption}</div>` : "") + `</div>`;
 
   // ---------- Вкладки ----------
   document.querySelectorAll(".tab").forEach((t) => {
@@ -76,10 +94,10 @@
           `<span class="chip"><b>${x.num} ${esc(x.name)}</b> ×${x.count}</span>`).join("")}</div>`
       : `<p class="desc">Ярко выраженной доминанты нет — арканы распределены равномерно, ни одна тема не «перекрикивает» остальные.</p>`;
 
-    $("m-result").innerHTML = `
+    const mhtml = `
       <h2>${name ? esc(name) + " · " : ""}Матрица судьбы</h2>
       <div class="sub">${data.birthdate}</div>
-      ${OCT.renderOctagram(data)}
+      ${dusk(OCT.renderOctagram(data), "Октаграмма судьбы · восьмиконечная звезда твоей карты")}
       <div class="toolbar"><button class="btn-min" onclick="window.print()">Печать / PDF</button></div>
 
       <div class="section-title">Личный квадрат</div>
@@ -133,6 +151,7 @@
 
       ${disclaimerHTML("матрица")}
     `;
+    paint("m-result", mhtml);
     $("m-result").scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
@@ -203,11 +222,13 @@
       const x = ct("aspects", t); return x ? `<div class="row"><b>${esc(t)}:</b> ${esc(x)}</div>` : "";
     }).join("");
 
-    $("n-result").innerHTML = `
+    const nhtml = `
       <h2>Натальная карта</h2>
       <div class="sub">${String(R.input.d).padStart(2,"0")}.${String(R.input.mo).padStart(2,"0")}.${R.input.y}
         · ${esc($("n-time").value)} · ${esc(city)}</div>
       <div class="toolbar"><button class="btn-min" onclick="window.print()">Печать / PDF</button></div>
+
+      ${window.PhysalisWheel ? dusk(`<div class="wheel-wrap">${window.PhysalisWheel.makeWheel(R)}</div>`, "Колесо твоего неба · положения планет в час рождения") : ""}
 
       <div class="section-title">Главные точки карты</div>
       ${concept("sunMoon")}
@@ -249,6 +270,7 @@
 
       ${disclaimerHTML("натал")}
     `;
+    paint("n-result", nhtml);
     $("n-result").scrollIntoView({ behavior: "smooth", block: "start" });
   }
 

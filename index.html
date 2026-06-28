@@ -7,17 +7,18 @@
 <meta name="description" content="Генератор матрицы судьбы и натальной карты по дате рождения в тёплом стиле «Физалис».">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 <link rel="icon" href="assets/physalis_mark.png">
 </head>
 <body>
 
 <header class="hero">
-  <img class="mark" src="assets/physalis_hero.png" alt="Физалис">
-  <h1>Матрица судьбы и натальная карта</h1>
-  <p class="lead">Загляни в свою карту по дате рождения — в тёплом стиле «Физалис».
-    Инструмент для размышления о себе, а не точная наука.</p>
+  <div class="eyebrow"><span class="lantern">✦</span>&nbsp;Физалис · золотой час</div>
+  <img class="hero-emblem glow-breathe" src="assets/physalis_hero.png" alt="Физалис">
+  <h1>Матрица судьбы&nbsp;и натальная карта</h1>
+  <p class="tagline">Загляни в свой золотой час — карту судьбы, вычерченную золотом
+    по линиям звёзд и отпечатанную светом засохшего лета.</p>
   <div class="tabs">
     <button class="tab active" data-tab="matrix">Матрица судьбы</button>
     <button class="tab" data-tab="natal">Натальная карта</button>
@@ -89,8 +90,9 @@
 </main>
 
 <footer>
+  <span class="footer-mark">✦</span>
   Сделано в стиле «Физалис» · расчёт матрицы — метод октаграммы (школа Ладини),
-  натальная карта — эфемериды
+  натальная карта — реальные эфемериды
   <a href="https://github.com/cosinekitty/astronomy" target="_blank" rel="noopener">astronomy-engine</a>.
 </footer>
 
@@ -100,6 +102,8 @@
 <script src="js/matrix.js"></script>
 <script src="js/octagram.js"></script>
 <script src="js/natal.js"></script>
+<script src="js/wheel.js"></script>
+<script src="js/fx.js"></script>
 <script src="js/app.js"></script>
 </body>
 </html>
