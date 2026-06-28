@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Физалис · Матрица судьбы и натальная карта</title>
+<meta name="description" content="Генератор матрицы судьбы и натальной карты по дате рождения в тёплом стиле «Физалис».">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="assets/physalis_mark.png">
+</head>
+<body>
+
+<header class="hero">
+  <img class="mark" src="assets/physalis_hero.png" alt="Физалис">
+  <h1>Матрица судьбы и натальная карта</h1>
+  <p class="lead">Загляни в свою карту по дате рождения — в тёплом стиле «Физалис».
+    Инструмент для размышления о себе, а не точная наука.</p>
+  <div class="tabs">
+    <button class="tab active" data-tab="matrix">Матрица судьбы</button>
+    <button class="tab" data-tab="natal">Натальная карта</button>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ===== Матрица судьбы ===== -->
+  <section class="panel active" id="panel-matrix">
+    <div class="card">
+      <div class="form-grid">
+        <div>
+          <label for="m-date">Дата рождения</label>
+          <input type="text" id="m-date" placeholder="ДД.ММ.ГГГГ" value="29.09.1987" autocomplete="off">
+          <div class="hint">Например: 29.09.1987</div>
+        </div>
+        <div>
+          <label for="m-name">Имя (необязательно)</label>
+          <input type="text" id="m-name" placeholder="как обращаться" autocomplete="off">
+        </div>
+      </div>
+      <button class="go" id="m-go">Построить матрицу</button>
+      <div class="err" id="m-err"></div>
+    </div>
+    <div class="result" id="m-result"></div>
+  </section>
+
+  <!-- ===== Натальная карта ===== -->
+  <section class="panel" id="panel-natal">
+    <div class="card">
+      <div class="form-grid">
+        <div>
+          <label for="n-date">Дата рождения</label>
+          <input type="text" id="n-date" placeholder="ДД.ММ.ГГГГ" value="30.06.1992" autocomplete="off">
+        </div>
+        <div>
+          <label for="n-time">Время рождения</label>
+          <input type="time" id="n-time" value="12:00">
+          <div class="hint">Местное время. Влияет на асцендент и дома.</div>
+        </div>
+        <div>
+          <label for="n-city">Город рождения</label>
+          <input list="city-list" id="n-city" placeholder="начните вводить…" value="Москва" autocomplete="off">
+          <datalist id="city-list"></datalist>
+        </div>
+      </div>
+      <div class="form-grid" style="margin-top:14px">
+        <div>
+          <label for="n-lat">Широта</label>
+          <input type="number" id="n-lat" step="0.0001" value="55.7558">
+        </div>
+        <div>
+          <label for="n-lon">Долгота (восток +)</label>
+          <input type="number" id="n-lon" step="0.0001" value="37.6173">
+        </div>
+        <div>
+          <label for="n-tz">Часовой пояс (UTC ±ч)</label>
+          <input type="number" id="n-tz" step="0.5" value="3">
+          <div class="hint">Город подставляет автоматически</div>
+        </div>
+      </div>
+      <button class="go" id="n-go">Построить карту</button>
+      <div class="err" id="n-err"></div>
+    </div>
+    <div class="result" id="n-result"></div>
+  </section>
+
+</main>
+
+<footer>
+  Сделано в стиле «Физалис» · расчёт матрицы — метод октаграммы (школа Ладини),
+  натальная карта — эфемериды
+  <a href="https://github.com/cosinekitty/astronomy" target="_blank" rel="noopener">astronomy-engine</a>.
+</footer>
+
+<script src="vendor/astronomy.browser.js"></script>
+<script src="js/cities.js"></script>
+<script src="js/matrix.js"></script>
+<script src="js/octagram.js"></script>
+<script src="js/natal.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
