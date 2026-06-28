@@ -293,5 +293,5 @@
   $("m-date").addEventListener("keydown", (e) => { if (e.key === "Enter") renderMatrix(); });
   $("n-date").addEventListener("keydown", (e) => { if (e.key === "Enter") renderNatal(); });
 
-  renderMatrix(); // первый рендер для демонстрации
+  // Авто-расчёта нет: матрица строится только после ввода своей даты и нажатия кнопки.
 })();
