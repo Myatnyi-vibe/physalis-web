@@ -153,7 +153,28 @@ button.go:hover { transform: translateY(-1px); box-shadow: 0 9px 24px rgba(197,1
   font-size: 20px; color: var(--plum); margin-bottom: 6px;
 }
 .subcard .desc { font-size: 14.5px; color: var(--text); }
-.subcard .tag { font-size: 13px; }
+.subcard .what {
+  font-size: 13px; color: var(--muted); font-style: italic;
+  margin-bottom: 8px; padding-bottom: 8px; border-bottom: 1px dashed var(--line);
+}
+.subcard .prose { font-size: 14.5px; color: var(--text); margin: 6px 0 10px; }
+.subcard .tag { font-size: 13px; margin-top: 4px; }
+.subcard .tag b, .tag b { font-weight: 700; }
+
+/* вступления к разделам и пояснения концепций */
+.intro {
+  font-size: 15.5px; color: var(--card-title); margin: -4px 0 18px;
+  max-width: 760px; line-height: 1.62;
+}
+.concept {
+  background: var(--cream-deep); border-left: 3px solid var(--peach-acc);
+  border-radius: 0 10px 10px 0; padding: 11px 16px; margin: 0 0 16px;
+  font-size: 14.5px; color: var(--text);
+}
+.concept b { color: var(--card-title); }
+.legend { display: grid; gap: 8px; margin: 6px 0 4px; }
+.legend .row { font-size: 14px; }
+.legend .row b { color: var(--plum); }
 .tag.plus { color: var(--sage); }
 .tag.minus { color: var(--rust); }
 
