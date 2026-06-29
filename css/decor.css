@@ -1,0 +1,73 @@
+/* ============================================================
+   Физалис · Плавающий декоративный слой (символы Таро/планет/звёзд)
+   Лежит ПОЗАДИ контента (z-index 0 < z-index 1 у блоков),
+   поэтому не мешает чтению: текст всегда поверх.
+   ============================================================ */
+
+#cosmos-decor {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;
+  color: var(--gold-bright); contain: strict;
+}
+
+.decor-sprite {
+  position: absolute; display: grid; place-items: center;
+  will-change: transform, filter;
+  animation-name: decorShimmer; animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+}
+
+.decor-float {
+  width: 100%; height: 100%; display: grid; place-items: center;
+  animation-name: decorFloat; animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+}
+.decor-morph { position: relative; width: 100%; height: 100%; }
+
+.sym {
+  position: absolute; inset: 0; display: grid; place-items: center;
+  animation-iteration-count: infinite; animation-timing-function: ease-in-out;
+}
+.sym.a { animation-name: morphA; }
+.sym.b { animation-name: morphB; }
+
+.d-glyph { font-size: 0.86em; line-height: 1; font-family: "Segoe UI Symbol", "Noto Sans Symbols 2", Georgia, serif; }
+.d-svg { width: 86%; height: 86%; display: block; overflow: visible; }
+
+/* — переливание: тёплый сдвиг тона + мягкое свечение — */
+@keyframes decorShimmer {
+  0%, 100% { filter: hue-rotate(-12deg) brightness(0.95) drop-shadow(0 0 3px rgba(240,213,138,0)); }
+  50%      { filter: hue-rotate(24deg) brightness(1.3) drop-shadow(0 0 8px rgba(240,213,138,0.45)); }
+}
+/* — лёгкое плавание — */
+@keyframes decorFloat {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  33%      { transform: translate(7px, -9px) rotate(5deg); }
+  66%      { transform: translate(-6px, 6px) rotate(-4deg); }
+}
+/* — перетекание формы: символ А ↔ символ Б со сжатием-поворотом — */
+@keyframes morphA {
+  0%, 40%  { opacity: 1; transform: scale(1) rotate(0deg); }
+  50%      { opacity: 0; transform: scale(0.55) rotate(40deg); }
+  90%      { opacity: 0; transform: scale(0.55) rotate(40deg); }
+  100%     { opacity: 1; transform: scale(1) rotate(0deg); }
+}
+@keyframes morphB {
+  0%, 40%  { opacity: 0; transform: scale(0.55) rotate(-40deg); }
+  50%      { opacity: 1; transform: scale(1) rotate(0deg); }
+  90%      { opacity: 1; transform: scale(1) rotate(0deg); }
+  100%     { opacity: 0; transform: scale(0.55) rotate(-40deg); }
+}
+
+/* над тёмными сумеречными панелями символы можно показать чуть ярче.
+   (Слой за контентом, но под полупрозрачными краями он всё равно дышит.) */
+
+@media (max-width: 620px) {
+  /* на узких экранах слой ещё тише — задаётся и в JS через количество/прозрачность */
+  #cosmos-decor { opacity: 0.85; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .decor-sprite, .decor-float, .sym { animation: none !important; }
+  .sym.b { opacity: 0; }            /* показываем только один символ, статично */
+  .decor-sprite { transform: none !important; }
+}
