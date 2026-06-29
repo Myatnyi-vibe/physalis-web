@@ -3,128 +3,245 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Физалис · Матрица судьбы и натальная карта</title>
-<meta name="description" content="Генератор матрицы судьбы и натальной карты по дате рождения в тёплом стиле «Физалис».">
+<title>Физалис · Матрица судьбы и натальная карта по дате рождения</title>
+<meta name="description" content="Тёплый разбор себя по дате рождения: матрица судьбы и натальная карта. Характер, предназначение, деньги, отношения и ритм года — в красивых картах и звёздном колесе.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/landing.css">
 <link rel="icon" href="assets/physalis_mark.png">
 </head>
 <body>
 
-<div id="gate">
-  <div class="starfield"></div>
-  <div class="gate-card">
-    <img class="gate-emblem" src="assets/physalis_hero.png" alt="Физалис">
-    <div class="eyebrow" style="justify-content:center"><span class="lantern">✦</span>&nbsp;Физалис</div>
-    <h2 class="gate-title">Тайная дверь</h2>
-    <p class="gate-sub">Чтобы заглянуть в карты судьбы, введите пароль.</p>
-    <input type="password" id="gate-pass" placeholder="Пароль" autocomplete="off" autocapitalize="off" spellcheck="false">
-    <button id="gate-go" class="go gate-go">Войти</button>
-    <div class="err" id="gate-err"></div>
-    <div class="gate-hint">Доступ по паролю</div>
+<!-- ===== Навигация ===== -->
+<nav class="lp-nav">
+  <a class="brand" href="index.html"><img src="assets/physalis_mark.png" alt="">Физалис</a>
+  <div class="links">
+    <a class="ghost" href="#benefits">Возможности</a>
+    <a class="ghost" href="#pricing">Пакеты</a>
+    <a class="cta" href="app.html">Войти</a>
   </div>
-</div>
+</nav>
 
-<header class="hero">
-  <div class="starfield hero-stars"></div>
-  <div class="eyebrow"><span class="lantern">✦</span>&nbsp;Физалис · золотой час</div>
+<!-- ===== Hero ===== -->
+<header class="lp-hero">
+  <div class="starfield"></div>
+  <div class="nebula"></div>
   <img class="hero-emblem glow-breathe" src="assets/physalis_hero.png" alt="Физалис">
-  <h1>Матрица судьбы&nbsp;и натальная карта</h1>
-  <p class="tagline">Загляни в свой золотой час — карту судьбы, вычерченную золотом
-    по линиям звёзд и отпечатанную светом засохшего лета.</p>
-  <div class="tabs">
-    <button class="tab active" data-tab="matrix">Матрица судьбы</button>
-    <button class="tab" data-tab="natal">Натальная карта</button>
+  <div class="eyebrow"><span class="lantern">✦</span>&nbsp;Карта судьбы · Натальная карта</div>
+  <h1>Узнай, что зашито в&nbsp;твоей дате рождения</h1>
+  <p class="lead">Тёплый, бережный разбор себя по дате рождения: характер, сильные стороны,
+    предназначение, деньги, отношения и ритм года — в красивых картах Таро и золотом колесе неба.</p>
+  <div class="hero-cta">
+    <a class="btn btn-gold" href="#pricing">Выбрать пакет</a>
+    <a class="btn btn-ghost" href="app.html">Посмотреть инструмент</a>
+  </div>
+  <div class="trust">
+    <span><b>✦</b> 22 аркана и полное колесо неба</span>
+    <span><b>✦</b> Точные эфемериды</span>
+    <span><b>✦</b> PDF на память</span>
   </div>
 </header>
 
-<main class="wrap">
-
-  <!-- ===== Матрица судьбы ===== -->
-  <section class="panel active" id="panel-matrix">
-    <div class="card">
-      <div class="form-grid">
-        <div>
-          <label for="m-date">Дата рождения</label>
-          <input type="text" id="m-date" placeholder="ДД.ММ.ГГГГ" value="" autocomplete="off">
-          <div class="hint">Например: 29.09.1987</div>
-        </div>
-        <div>
-          <label for="m-name">Имя (необязательно)</label>
-          <input type="text" id="m-name" placeholder="как обращаться" autocomplete="off">
-        </div>
-      </div>
-      <button class="go" id="m-go">Построить матрицу</button>
-      <div class="err" id="m-err"></div>
+<!-- ===== Выгоды ===== -->
+<section class="lp-section" id="benefits">
+  <div class="lp-head reveal">
+    <h2 class="section-title">Что ты получишь</h2>
+    <p>Не сухие цифры, а понятный тёплый разбор — про тебя и для тебя.</p>
+  </div>
+  <div class="lp-benefits">
+    <div class="benefit reveal">
+      <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="9" cy="10.5" r=".6" fill="currentColor"/><circle cx="15" cy="10.5" r=".6" fill="currentColor"/><path d="M8.5 14.5c1.6 2 5.4 2 7 0"/></svg></div>
+      <h3>Понять себя без оценок</h3>
+      <p>Увидишь свой характер, таланты и мягкие зоны роста — как тёплое зеркало, а не приговор.</p>
     </div>
-    <div class="result" id="m-result">
-      <p class="empty-hint">Введите свою дату рождения и, по желанию, имя — и нажмите
-        «Построить матрицу», чтобы увидеть свою карту.</p>
+    <div class="benefit reveal">
+      <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5l2.2 7.3 7.3 2.2-7.3 2.2L12 21.5l-2.2-7.3L2.5 12l7.3-2.2z"/></svg></div>
+      <h3>Найти предназначение</h3>
+      <p>Куда расти и в чём твоя большая задача — в первой и во второй половине жизни.</p>
     </div>
-  </section>
-
-  <!-- ===== Натальная карта ===== -->
-  <section class="panel" id="panel-natal">
-    <div class="card">
-      <div class="form-grid">
-        <div>
-          <label for="n-date">Дата рождения</label>
-          <input type="text" id="n-date" placeholder="ДД.ММ.ГГГГ" value="30.06.1992" autocomplete="off">
-        </div>
-        <div>
-          <label for="n-time">Время рождения</label>
-          <input type="time" id="n-time" value="12:00">
-          <div class="hint">Местное время. Влияет на асцендент и дома.</div>
-        </div>
-        <div>
-          <label for="n-city">Город рождения</label>
-          <input list="city-list" id="n-city" placeholder="начните вводить…" value="Москва" autocomplete="off">
-          <datalist id="city-list"></datalist>
-        </div>
-      </div>
-      <div class="form-grid" style="margin-top:14px">
-        <div>
-          <label for="n-lat">Широта</label>
-          <input type="number" id="n-lat" step="0.0001" value="55.7558">
-        </div>
-        <div>
-          <label for="n-lon">Долгота (восток +)</label>
-          <input type="number" id="n-lon" step="0.0001" value="37.6173">
-        </div>
-        <div>
-          <label for="n-tz">Часовой пояс (UTC ±ч)</label>
-          <input type="number" id="n-tz" step="0.5" value="3">
-          <div class="hint">Город подставляет автоматически</div>
-        </div>
-      </div>
-      <button class="go" id="n-go">Построить карту</button>
-      <div class="err" id="n-err"></div>
+    <div class="benefit reveal">
+      <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20C5 15 3 11 3 8 3 5.5 5 4 7 4c2 0 4 2 5 4 1-2 3-4 5-4 2 0 4 1.5 4 4 0 3-2 7-9 12z"/></svg></div>
+      <h3>Деньги и отношения</h3>
+      <p>Где твой денежный поток и как именно ты любишь, выбираешь и привязываешься.</p>
     </div>
-    <div class="result" id="n-result"></div>
-  </section>
+    <div class="benefit reveal">
+      <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7v5l3.5 2"/></svg></div>
+      <h3>Ритм твоего года</h3>
+      <p>Что подсвечивает каждый год до 2035-го и когда лучше начинать новое.</p>
+    </div>
+  </div>
+</section>
 
-</main>
+<!-- ===== Два инструмента ===== -->
+<section class="lp-section">
+  <div class="lp-head reveal">
+    <h2 class="section-title">Два взгляда на тебя</h2>
+    <p>Древний символический и точный астрономический — вместе они дают объёмную картину.</p>
+  </div>
+  <div class="lp-tools">
+    <div class="tool-card reveal">
+      <div class="starfield"></div>
+      <svg class="tool-emblem" viewBox="0 0 100 130" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polygon points="50,20 90,60 50,100 10,60"/><polygon points="22,32 78,32 78,88 22,88"/>
+        <circle cx="50" cy="60" r="9"/><circle cx="50" cy="60" r="2.5" fill="currentColor"/>
+      </svg>
+      <h3>Матрица судьбы</h3>
+      <div class="tag-row">Метод октаграммы · 22 аркана</div>
+      <ul>
+        <li>Личный и родовой квадрат</li>
+        <li>Предназначение и кармический хвост</li>
+        <li>Доминанта, декады и личные годы</li>
+        <li>Каждый аркан — как карта Таро с разбором</li>
+      </ul>
+      <a class="tool-link" href="app.html">Посмотреть инструмент →</a>
+    </div>
+    <div class="tool-card reveal">
+      <div class="starfield"></div>
+      <svg class="tool-emblem" viewBox="0 0 100 130" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="50" cy="60" r="40"/><circle cx="50" cy="60" r="30"/>
+        <line x1="10" y1="60" x2="90" y2="60"/><line x1="50" y1="20" x2="50" y2="100"/>
+        <line x1="22" y1="32" x2="78" y2="88"/><line x1="78" y1="32" x2="22" y2="88"/>
+        <circle cx="50" cy="60" r="3.5" fill="currentColor"/>
+        <circle cx="50" cy="22" r="1.6" fill="currentColor"/><circle cx="88" cy="60" r="1.6" fill="currentColor"/>
+        <circle cx="50" cy="98" r="1.6" fill="currentColor"/><circle cx="12" cy="60" r="1.6" fill="currentColor"/>
+      </svg>
+      <h3>Натальная карта</h3>
+      <div class="tag-row">Реальные эфемериды · твоё небо</div>
+      <ul>
+        <li>10 планет по знакам и домам</li>
+        <li>Асцендент, MC и дома</li>
+        <li>Аспекты и баланс стихий</li>
+        <li>Красивое золотое колесо неба</li>
+      </ul>
+      <a class="tool-link" href="app.html">Посмотреть инструмент →</a>
+    </div>
+  </div>
+</section>
 
-<footer>
-  <span class="footer-mark">✦</span>
-  Сделано в стиле «Физалис» · расчёт матрицы — метод октаграммы (школа Ладини),
-  натальная карта — реальные эфемериды
-  <a href="https://github.com/cosinekitty/astronomy" target="_blank" rel="noopener">astronomy-engine</a>.
+<!-- ===== Как это работает ===== -->
+<section class="lp-section">
+  <div class="lp-head reveal"><h2 class="section-title">Как это работает</h2></div>
+  <div class="lp-steps">
+    <div class="step reveal"><div class="num">1</div><h3>Введи данные</h3><p>Дату рождения. Для натальной карты — ещё время и город.</p></div>
+    <div class="step reveal"><div class="num">2</div><h3>Получи разбор</h3><p>Карты, колесо и тёплые объяснения к каждому пункту.</p></div>
+    <div class="step reveal"><div class="num">3</div><h3>Сохрани на память</h3><p>Выгрузи PDF и перечитывай, когда захочется.</p></div>
+  </div>
+</section>
+
+<!-- ===== Пакеты ===== -->
+<div class="lp-pricing-wrap">
+<section class="lp-section" id="pricing">
+  <div class="lp-head reveal">
+    <h2 class="section-title">Выбери свой пакет</h2>
+    <p>Один разбор или сразу оба — со скидкой.</p>
+  </div>
+  <div class="lp-pricing">
+    <div class="price-card reveal">
+      <div class="pk-name">Матрица судьбы</div>
+      <div class="pk-sub">Метод октаграммы</div>
+      <div class="pk-price">2000 <span class="cur">₽</span></div>
+      <div class="pk-old"></div>
+      <ul>
+        <li>Октаграмма судьбы</li>
+        <li>22 аркана с разбором</li>
+        <li>Предназначение, деньги, отношения</li>
+        <li>Личные годы 2026–2035</li>
+        <li>Выгрузка в PDF</li>
+      </ul>
+      <button class="btn btn-gold buy" data-buy="matrix">Оплатить</button>
+    </div>
+
+    <div class="price-card featured reveal">
+      <div class="badge">Выгодно · −1000 ₽</div>
+      <div class="pk-name">Всё вместе</div>
+      <div class="pk-sub">Матрица + Натальная карта</div>
+      <div class="pk-price">3000 <span class="cur">₽</span></div>
+      <div class="pk-old">4000 ₽</div>
+      <ul>
+        <li>Полная матрица судьбы</li>
+        <li>Полная натальная карта</li>
+        <li>Самая цельная картина себя</li>
+        <li>Обе выгрузки в PDF</li>
+        <li>Приоритетная поддержка</li>
+      </ul>
+      <button class="btn btn-gold buy" data-buy="both">Оплатить</button>
+    </div>
+
+    <div class="price-card reveal">
+      <div class="pk-name">Натальная карта</div>
+      <div class="pk-sub">Реальные эфемериды</div>
+      <div class="pk-price">2000 <span class="cur">₽</span></div>
+      <div class="pk-old"></div>
+      <ul>
+        <li>Золотое колесо неба</li>
+        <li>10 планет, дома, аспекты</li>
+        <li>Асцендент и MC</li>
+        <li>Баланс стихий</li>
+        <li>Выгрузка в PDF</li>
+      </ul>
+      <button class="btn btn-gold buy" data-buy="natal">Оплатить</button>
+    </div>
+  </div>
+  <p class="price-note">Оплата пока в демо-режиме — подключим позже. Доступ к инструменту открывается по паролю.</p>
+</section>
+</div>
+
+<!-- ===== FAQ ===== -->
+<section class="lp-section">
+  <div class="lp-head reveal"><h2 class="section-title">Частые вопросы</h2></div>
+  <div class="lp-faq reveal">
+    <div class="faq-item"><button class="faq-q">Это точно про меня?</button>
+      <div class="faq-a"><div class="inner">Расчёт строится только на твоих данных — дате рождения (и времени с городом для натальной карты). Тексты тёплые и про тебя, без шаблонных страшилок.</div></div></div>
+    <div class="faq-item"><button class="faq-q">Откуда берутся расчёты?</button>
+      <div class="faq-a"><div class="inner">Матрица — метод октаграммы (школа Ладини). Натальная карта — реальные астрономические эфемериды; точность сверена с профессиональными сервисами до угловой минуты.</div></div></div>
+    <div class="faq-item"><button class="faq-q">Это наука?</button>
+      <div class="faq-a"><div class="inner">Нет. Это инструмент для размышления о себе, а не доказанная наука. Бери то, что отзывается, и оставляй остальное — как красивое зеркало.</div></div></div>
+    <div class="faq-item"><button class="faq-q">Как я получу результат?</button>
+      <div class="faq-a"><div class="inner">Прямо в браузере: красивый разбор с картами Таро и золотым колесом неба, плюс возможность сохранить всё в PDF.</div></div></div>
+    <div class="faq-item"><button class="faq-q">Что с оплатой?</button>
+      <div class="faq-a"><div class="inner">Сейчас кнопки работают в демо-режиме (имитация оплаты). Реальную оплату мы подключим позже — данные карты нигде не запрашиваются.</div></div></div>
+  </div>
+</section>
+
+<!-- ===== Финальный CTA ===== -->
+<section class="lp-final">
+  <div class="starfield"></div>
+  <h2>Готов(а) заглянуть в свою карту?</h2>
+  <p>Выбери пакет — и через минуту увидишь себя в тёплом свете звёзд.</p>
+  <a class="btn btn-gold" href="#pricing">Выбрать пакет</a>
+</section>
+
+<footer class="lp-footer">
+  <span class="fmark">✦</span>
+  Физалис · матрица судьбы и натальная карта.
+  <a href="app.html">Открыть инструмент</a> ·
+  Инструмент для размышления о себе, а не доказанная наука.
 </footer>
 
-<script src="vendor/astronomy.browser.js"></script>
-<script src="js/cities.js"></script>
-<script src="js/content.js"></script>
-<script src="js/arcana-art.js"></script>
-<script src="js/tarot.js"></script>
-<script src="js/matrix.js"></script>
-<script src="js/octagram.js"></script>
-<script src="js/natal.js"></script>
-<script src="js/wheel.js"></script>
+<!-- ===== Демо-модалка оплаты ===== -->
+<div class="pay-modal" id="pay-modal">
+  <div class="pay-card">
+    <button class="close" aria-label="Закрыть">×</button>
+    <div class="pay-body">
+      <div class="pay-eyebrow">Оформление пакета</div>
+      <h3 id="pay-name">Пакет</h3>
+      <div class="pay-price" id="pay-price">0 <span class="cur">₽</span></div>
+      <p class="pay-desc" id="pay-desc"></p>
+      <div class="demo-badge">Демо-режим · реальная оплата скоро</div>
+      <button class="btn btn-gold pay-go" id="pay-go">Оплатить</button>
+    </div>
+    <div class="pay-success">
+      <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7"/></svg></div>
+      <h3>Спасибо!</h3>
+      <p class="pay-desc">Это демонстрация — оплата пока не подключена. Скоро здесь будет настоящая касса, и пакет откроется автоматически.</p>
+      <a class="btn btn-ghost pay-go" href="app.html" style="border-color:var(--gold-leaf);color:var(--plum)">Открыть инструмент</a>
+    </div>
+  </div>
+</div>
+
 <script src="js/fx.js"></script>
-<script src="js/app.js"></script>
-<script src="js/gate.js"></script>
+<script src="js/landing.js"></script>
 </body>
 </html>
