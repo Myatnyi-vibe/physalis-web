@@ -20,6 +20,7 @@
   function card(num, name) {
     const art = (window.PhysalisArcanaArt || {})[String(num)] || DEFAULT_ART;
     return `<div class="tarot-card" title="${esc(name)}">
+      <span class="tc-sheen"></span>
       <div class="tc-numeral">${roman(num)}</div>
       <div class="tc-art"><svg viewBox="0 0 200 240" preserveAspectRatio="xMidYMid meet" aria-hidden="true">${art}</svg></div>
       <div class="tc-name">${esc(name)}</div>

@@ -28,6 +28,7 @@
   // «небесная карта» (планета/точка) — в том же стиле, что карта Таро
   function celestialCard(top, glyph, name, duo) {
     return `<div class="tarot-card celestial">
+      <span class="tc-sheen"></span>
       <div class="tc-numeral">${top}</div>
       <div class="tc-art"><span class="tc-glyph${duo ? " duo" : ""}">${glyph}</span></div>
       <div class="tc-name">${esc(name)}</div>

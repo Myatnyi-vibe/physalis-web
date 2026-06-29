@@ -14,7 +14,7 @@
     const below = y > cy + 6;
     const labelY = below ? y + rad + 17 : y - rad - 9;
     return `
-      <g class="oct-node">
+      <g class="oct-node fade">
         <circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${rad + 3}" fill="none"
                 stroke="${ring}" stroke-width="1" stroke-opacity="0.5" filter="url(#oct-glow)"/>
         <circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${rad}" fill="#FBF2DF"
@@ -36,8 +36,8 @@
   function square(cx, cy, r, keys) {
     const pts = keys.map((k) => polar(cx, cy, r, ANGLES[k]).map((v) => v.toFixed(1)).join(",")).join(" ");
     return `
-      <polygon points="${pts}" fill="none" stroke="#8C6A2E" stroke-width="2.4" stroke-opacity="0.9"/>
-      <polygon points="${pts}" fill="none" stroke="#E6CF9C" stroke-width="0.8" stroke-opacity="0.85"/>`;
+      <polygon class="draw" pathLength="1" points="${pts}" fill="none" stroke="#8C6A2E" stroke-width="2.4" stroke-opacity="0.9"/>
+      <polygon class="draw" pathLength="1" points="${pts}" fill="none" stroke="#E6CF9C" stroke-width="0.8" stroke-opacity="0.85"/>`;
   }
 
   function renderOctagram(M) {
@@ -48,7 +48,7 @@
     let vertexStars = "";
     Object.values(ANGLES).forEach((deg) => {
       const [vx, vy] = polar(cx, cy, r, deg);
-      vertexStars += `<circle cx="${vx.toFixed(1)}" cy="${vy.toFixed(1)}" r="2" fill="#F0D58A" filter="url(#oct-glow)"/>`;
+      vertexStars += `<circle class="fade" cx="${vx.toFixed(1)}" cy="${vy.toFixed(1)}" r="2" fill="#F0D58A" filter="url(#oct-glow)"/>`;
     });
 
     // внутренние диагонали-«чертёж»
@@ -56,7 +56,7 @@
     const order = ["day", "nw", "month", "ne", "year", "se", "karma", "sw"];
     order.forEach((k) => {
       const [x, y] = polar(cx, cy, r, ANGLES[k]);
-      diag += `<line x1="${cx}" y1="${cy}" x2="${x.toFixed(1)}" y2="${y.toFixed(1)}"
+      diag += `<line class="fade" x1="${cx}" y1="${cy}" x2="${x.toFixed(1)}" y2="${y.toFixed(1)}"
                stroke="#C9A24B" stroke-width="0.5" stroke-opacity="0.35" stroke-dasharray="2 5"/>`;
     });
 
@@ -71,7 +71,7 @@
       node(cx, cy, r, ANGLES.sw,    a.sw.num,           a.sw.name,           "род",      "#C9A24B"),
     ].join("");
 
-    return `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" class="octagram">
+    return `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" class="octagram draw-svg">
       <defs>
         <radialGradient id="oct-center" cx="50%" cy="50%" r="60%">
           <stop offset="0%" stop-color="#FBF2DF"/>
@@ -90,8 +90,8 @@
       </defs>
 
       <circle cx="${cx}" cy="${cy}" r="250" fill="url(#oct-halo)" class="glow-breathe"/>
-      <circle cx="${cx}" cy="${cy}" r="${r + 30}" fill="none" stroke="#C9A24B" stroke-width="0.8" stroke-opacity="0.4"/>
-      <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="#B98E4A" stroke-width="0.8" stroke-opacity="0.4" stroke-dasharray="2 7"/>
+      <circle class="draw" pathLength="1" cx="${cx}" cy="${cy}" r="${r + 30}" fill="none" stroke="#C9A24B" stroke-width="0.8" stroke-opacity="0.4"/>
+      <circle class="fade" cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="#B98E4A" stroke-width="0.8" stroke-opacity="0.4" stroke-dasharray="2 7"/>
       ${diag}
       ${square(cx, cy, r, ["day", "month", "year", "karma"])}
       ${square(cx, cy, r, ["nw", "ne", "se", "sw"])}
@@ -100,14 +100,16 @@
       <g class="glow-breathe">
         <circle cx="${cx}" cy="${cy}" r="48" fill="url(#oct-halo)"/>
       </g>
-      <circle cx="${cx}" cy="${cy}" r="40" fill="url(#oct-center)" stroke="#C9A24B" stroke-width="2.2"/>
-      <circle cx="${cx}" cy="${cy}" r="34" fill="none" stroke="#E6CF9C" stroke-width="0.7"/>
-      <text x="${cx}" y="${cy - 3}" text-anchor="middle" font-family="Playfair Display, Georgia, serif"
-            font-style="italic" font-size="30" fill="#5A3B49">${M.center_comfort.num}</text>
-      <text x="${cx}" y="${cy + 15}" text-anchor="middle" font-family="Calibri, sans-serif"
-            font-size="10" fill="#7A5B52">${M.center_comfort.name}</text>
-      <text x="${cx}" y="${cy + 64}" text-anchor="middle" font-family="Calibri, sans-serif"
-            font-size="11" font-weight="600" letter-spacing="0.1em" fill="#E6CF9C">центр · зона комфорта</text>
+      <g class="fade">
+        <circle cx="${cx}" cy="${cy}" r="40" fill="url(#oct-center)" stroke="#C9A24B" stroke-width="2.2"/>
+        <circle cx="${cx}" cy="${cy}" r="34" fill="none" stroke="#E6CF9C" stroke-width="0.7"/>
+        <text x="${cx}" y="${cy - 3}" text-anchor="middle" font-family="Playfair Display, Georgia, serif"
+              font-style="italic" font-size="30" fill="#5A3B49">${M.center_comfort.num}</text>
+        <text x="${cx}" y="${cy + 15}" text-anchor="middle" font-family="Calibri, sans-serif"
+              font-size="10" fill="#7A5B52">${M.center_comfort.name}</text>
+        <text x="${cx}" y="${cy + 64}" text-anchor="middle" font-family="Calibri, sans-serif"
+              font-size="11" font-weight="600" letter-spacing="0.1em" fill="#E6CF9C">центр · зона комфорта</text>
+      </g>
 
       ${nodes}
     </svg>`;
