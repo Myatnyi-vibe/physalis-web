@@ -25,6 +25,18 @@
     `<div class="dusk reveal${extra ? " " + extra : ""}"><div class="starfield"></div><div class="nebula"></div>${inner}` +
     (caption ? `<div class="dusk-caption">${caption}</div>` : "") + `</div>`;
 
+  // «небесная карта» (планета/точка) — в том же стиле, что карта Таро
+  function celestialCard(top, glyph, name, duo) {
+    return `<div class="tarot-card celestial">
+      <div class="tc-numeral">${top}</div>
+      <div class="tc-art"><span class="tc-glyph${duo ? " duo" : ""}">${glyph}</span></div>
+      <div class="tc-name">${esc(name)}</div>
+    </div>`;
+  }
+  // ряд-«чтение»: карта слева + текст справа (как в матрице)
+  const readingRow = (card, capHtml, bodyHtml) =>
+    `<div class="tarot-row reveal">${card}<div class="tc-reading">${capHtml}${bodyHtml}</div></div>`;
+
   // ---------- Вкладки ----------
   document.querySelectorAll(".tab").forEach((t) => {
     t.addEventListener("click", () => {
@@ -192,18 +204,18 @@
         <td>${p.house} дом</td>
       </tr>`).join("");
 
-    // подробные карточки по планетам
+    // подробные ряды по планетам (карта + чтение)
     const planetCards = R.planets.map((p) => {
       const pl = ct("planets", p.name), sg = ct("signs", p.sign), hs = ct("houses", p.house);
       const retroNote = p.retro ? ct("natalConcepts", "retro") : "";
-      return `<div class="subcard">
-        <div class="cap">${p.glyph} ${esc(p.name)} ${p.retro ? '<span class="retro">R</span>' : ""}</div>
-        <div class="arc">${p.signGlyph} ${esc(p.sign)} · ${p.house} дом</div>
-        ${pl ? `<div class="prose">${esc(pl)}</div>` : `<div class="desc">${esc(p.sense)}</div>`}
-        ${sg ? `<div class="tag"><b>в знаке ${esc(p.sign)}:</b> ${esc(sg)}</div>` : ""}
-        ${hs ? `<div class="tag"><b>в ${p.house} доме:</b> ${esc(hs)}</div>` : ""}
-        ${retroNote ? `<div class="tag minus"><b>ретроградность:</b> ${esc(retroNote)}</div>` : ""}
-      </div>`;
+      const card = celestialCard(`${p.signGlyph} ${Math.floor(p.degInSign)}°`, p.glyph, p.name);
+      const cap = `<div class="cap">${esc(p.name)} в ${esc(p.sign)} · ${p.house} дом ${p.retro ? '<span class="retro">R</span>' : ""}</div>`;
+      const body =
+        (pl ? `<div class="prose">${esc(pl)}</div>` : `<div class="desc">${esc(p.sense)}</div>`) +
+        (sg ? `<div class="tag"><b>в знаке ${esc(p.sign)}:</b> ${esc(sg)}</div>` : "") +
+        (hs ? `<div class="tag"><b>в ${p.house} доме:</b> ${esc(hs)}</div>` : "") +
+        (retroNote ? `<div class="tag minus"><b>ретроградность:</b> ${esc(retroNote)}</div>` : "");
+      return readingRow(card, cap, body);
     }).join("");
 
     const housesRows = R.houses.map((h) => `
@@ -234,19 +246,21 @@
       ${window.PhysalisWheel ? dusk(`<div class="wheel-wrap">${window.PhysalisWheel.makeWheel(R)}</div>`, "Колесо твоего неба · положения планет в час рождения", "cosmic") : ""}
 
       <div class="section-title">Главные точки карты</div>
-      ${concept("sunMoon")}
-      <div class="cards">
-        <div class="subcard"><div class="cap">Асцендент</div>
-          <div class="arc">${R.asc.glyph} ${esc(R.asc.fmt)}</div>
-          ${ct("natalConcepts","ascendant") ? `<div class="what">${esc(ct("natalConcepts","ascendant"))}</div>` : ""}
-          <div class="prose">${esc(ct("signs", R.asc.sign) || R.asc.meaning)}</div></div>
-        <div class="subcard"><div class="cap">MC · вершина неба</div>
-          <div class="arc">${R.mc.glyph} ${esc(R.mc.fmt)}</div>
-          ${ct("natalConcepts","mc") ? `<div class="what">${esc(ct("natalConcepts","mc"))}</div>` : ""}
-          <div class="prose">${esc(ct("signs", R.mc.sign) || R.mc.meaning)}</div></div>
-        <div class="subcard"><div class="cap">Солнце · Луна</div>
-          <div class="arc">${R.planets[0].signGlyph} ${esc(R.planets[0].sign)} · ${R.planets[1].signGlyph} ${esc(R.planets[1].sign)}</div>
-          <div class="prose">Солнце — твоё ядро, Луна — твои чувства и потребности.</div></div>
+      <div class="tarot-spread">
+        ${readingRow(
+          celestialCard(R.asc.fmt.replace(/ .*/, ""), R.asc.glyph, "Асцендент"),
+          `<div class="cap">Асцендент · ${esc(R.asc.fmt)}</div>`,
+          (ct("natalConcepts","ascendant") ? `<div class="what">${esc(ct("natalConcepts","ascendant"))}</div>` : "") +
+          `<div class="prose">${esc(ct("signs", R.asc.sign) || R.asc.meaning)}</div>`)}
+        ${readingRow(
+          celestialCard(R.mc.fmt.replace(/ .*/, ""), R.mc.glyph, "MC · зенит"),
+          `<div class="cap">MC · вершина неба · ${esc(R.mc.fmt)}</div>`,
+          (ct("natalConcepts","mc") ? `<div class="what">${esc(ct("natalConcepts","mc"))}</div>` : "") +
+          `<div class="prose">${esc(ct("signs", R.mc.sign) || R.mc.meaning)}</div>`)}
+        ${readingRow(
+          celestialCard(`${R.planets[0].signGlyph} · ${R.planets[1].signGlyph}`, `${R.planets[0].glyph}${R.planets[1].glyph}`, "Солнце · Луна", true),
+          `<div class="cap">Солнце в ${esc(R.planets[0].sign)} · Луна в ${esc(R.planets[1].sign)}</div>`,
+          `<div class="prose">${esc(ct("natalConcepts","sunMoon") || "Солнце — твоё ядро, Луна — твои чувства и потребности.")}</div>`)}
       </div>
 
       <div class="section-title">Положения планет</div>
@@ -254,7 +268,7 @@
         <tbody>${planetsRows}</tbody></table>
 
       <div class="section-title">Планеты подробнее</div>
-      <div class="cards">${planetCards}</div>
+      <div class="tarot-spread">${planetCards}</div>
 
       <div class="section-title">Баланс стихий</div>
       ${concept("elements_balance")}

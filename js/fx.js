@@ -8,10 +8,16 @@
   function fillStarfield(field) {
     if (field.dataset.filled) return;
     field.dataset.filled = "1";
-    const n = Math.max(26, Math.round(field.clientWidth * field.clientHeight / 5200));
+    const isHero = field.classList.contains("hero-stars");
+    const isCosmic = !!field.closest(".cosmic");
+    const area = field.clientWidth * field.clientHeight;
+    const div = isHero ? 20000 : 4400;
+    let n = Math.round(area / div);
+    n = Math.max(isHero ? 16 : 30, Math.min(isHero ? 40 : 190, n));
+    const maxSize = isCosmic ? 3.4 : isHero ? 2.0 : 2.6;
     let html = "";
     for (let i = 0; i < n; i++) {
-      const s = rand(0.8, 2.6).toFixed(2);
+      const s = rand(0.8, maxSize).toFixed(2);
       html += `<span class="star" style="left:${rand(1,99).toFixed(1)}%;top:${rand(1,99).toFixed(1)}%;`
         + `width:${s}px;height:${s}px;--tw:${rand(2.6,6).toFixed(1)}s;--td:${rand(0,5).toFixed(1)}s;`
         + `opacity:${rand(0.3,0.9).toFixed(2)}"></span>`;
