@@ -1,0 +1,109 @@
+/* ============================================================
+   Физалис · Большие scroll-driven визуализации (как у Apple)
+   Высокая секция + липкий «экран» + анимация по прогрессу скролла.
+   ============================================================ */
+
+.showcase { position: relative; }
+.show-sticky {
+  position: sticky; top: 0; height: 100vh; overflow: hidden;
+  display: grid; place-items: center;
+  background: radial-gradient(ellipse 130% 100% at 50% 4%, #5C3848 0%, #3F2838 30%, #2C1A28 62%, #1E1019 100%);
+  /* переопределяем box-model, т.к. используем классы dusk/cosmic для звёзд */
+  border-radius: 0 !important; margin: 0 !important; box-shadow: none !important;
+  padding: 0 !important;
+}
+.show-sticky .starfield, .show-sticky .nebula { position: absolute; inset: 0; z-index: 0; }
+
+.show-head {
+  position: absolute; left: 0; right: 0; top: clamp(26px, 7vh, 70px); z-index: 3;
+  text-align: center; padding: 0 20px; pointer-events: none;
+}
+.show-head .eyebrow { color: var(--gold-bright); justify-content: center; }
+.show-head .eyebrow::before { background: linear-gradient(90deg, transparent, var(--gold-leaf)); }
+.show-head h2 {
+  font-family: var(--display); font-style: italic; font-size: clamp(30px, 5vw, 60px);
+  margin: 6px 0 0; line-height: 1.05;
+  background-image: linear-gradient(100deg, #F2D89A, #FBE9B8 40%, #E6B173 64%, #F2D89A);
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent;
+}
+.show-sub {
+  position: absolute; left: 0; right: 0; bottom: clamp(26px, 7vh, 64px); z-index: 3;
+  text-align: center; padding: 0 24px; pointer-events: none;
+  font-family: var(--serif); font-style: italic; font-size: clamp(16px, 2.2vw, 22px); color: #EAD9C2;
+  opacity: 0; transition: opacity .5s ease; max-width: 40ch; margin: 0 auto;
+}
+.show-sub.on { opacity: 1; }
+
+.show-stage { position: relative; z-index: 1; }
+
+/* ---------- Солнечная система ---------- */
+.stage-solar { width: min(94vw, 1040px); aspect-ratio: 1 / 1; }
+.stage-solar svg { width: 100%; height: 100%; overflow: visible; display: block; }
+.solar-label {
+  font-family: var(--sans); font-size: 11px; letter-spacing: .12em; text-transform: uppercase;
+  fill: var(--gold-pale); opacity: 0;
+}
+
+/* ---------- Карты Таро (веер + переворот) ---------- */
+.stage-tarot { width: min(94vw, 980px); height: min(70vh, 560px); perspective: 1600px; position: relative; }
+.fan-card {
+  position: absolute; left: 50%; top: 50%; width: clamp(150px, 19vw, 230px); aspect-ratio: 200/332;
+  transform-style: preserve-3d; will-change: transform;
+  margin-left: calc(clamp(150px, 19vw, 230px) / -2); margin-top: calc(clamp(150px, 19vw, 230px) * 332 / 200 / -2);
+}
+.fan-face, .fan-back {
+  position: absolute; inset: 0; backface-visibility: hidden; border-radius: 14px; overflow: hidden;
+  box-shadow: 0 30px 60px -24px rgba(20,10,18,.7);
+}
+.fan-face {
+  padding: 12px 10px 10px; display: flex; flex-direction: column; align-items: center;
+  background: radial-gradient(120% 78% at 50% 26%, rgba(242,201,142,.2), transparent 60%),
+              linear-gradient(170deg, #FCF7EF 0%, #F3E3CC 100%);
+  box-shadow: inset 0 0 0 1px var(--gold-leaf), 0 30px 60px -24px rgba(20,10,18,.7);
+}
+.fan-face::before { content: ""; position: absolute; inset: 6px; border: 1px solid var(--gold-leaf); opacity: .5; border-radius: 10px; }
+.fan-back { transform: rotateY(180deg);
+  background:
+    radial-gradient(circle at 50% 40%, rgba(242,201,142,.18), transparent 60%),
+    linear-gradient(160deg, #4A2F3D, #2A1822);
+  box-shadow: inset 0 0 0 1px var(--gold-leaf), 0 30px 60px -24px rgba(20,10,18,.7);
+}
+.fan-back::after {
+  content: ""; position: absolute; inset: 10px; border: 1px solid rgba(201,162,75,.55); border-radius: 9px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='26' height='26'%3E%3Cpath d='M13 0L26 13L13 26L0 13Z' fill='none' stroke='%23C9A24B' stroke-opacity='0.4' stroke-width='0.7'/%3E%3C/svg%3E");
+}
+.fan-back .bmark { position: absolute; inset: 0; display: grid; place-items: center; color: var(--gold-bright); font-size: 40px; opacity: .8; }
+.fan-num { position: relative; z-index: 1; font-family: var(--display); font-style: italic; font-size: 17px; color: var(--gold-deep); }
+.fan-art { position: relative; z-index: 1; flex: 1; width: 100%; display: grid; place-items: center; color: var(--gold-deep); }
+.fan-art svg { width: 84%; height: 100%; max-height: 70%; }
+.fan-name { position: relative; z-index: 1; font-family: var(--serif); font-variant: small-caps; letter-spacing: .08em;
+  font-weight: 600; font-size: 15px; color: var(--plum-card); border-top: 1px solid var(--gold-leaf); padding-top: 6px; width: 86%; text-align: center; }
+
+/* ---------- Зодиак (вращающееся колесо знаков) ---------- */
+.stage-zodiac { width: min(86vw, 720px); aspect-ratio: 1 / 1; position: relative; }
+.zodiac-ring { position: absolute; inset: 0; will-change: transform; }
+.zodiac-ring svg { width: 100%; height: 100%; overflow: visible; }
+.zsign {
+  position: absolute; left: 50%; top: 50%; width: 64px; height: 64px; margin: -32px;
+  display: grid; place-items: center; will-change: transform;
+}
+.zsign .zg {
+  font-family: "Segoe UI Symbol", "Noto Sans Symbols 2", serif; font-size: 34px; color: var(--gold-pale);
+  text-shadow: 0 0 12px rgba(240,213,138,.4); transition: color .3s, transform .3s, text-shadow .3s;
+}
+.zsign.active .zg { color: #FFF6E0; transform: scale(1.5); text-shadow: 0 0 22px rgba(251,233,184,.9); }
+.zodiac-core {
+  position: absolute; left: 50%; top: 50%; width: 42%; height: 42%; transform: translate(-50%,-50%);
+  display: grid; place-items: center; text-align: center; z-index: 2; pointer-events: none;
+}
+.zodiac-core .zname {
+  font-family: var(--display); font-style: italic; font-size: clamp(22px, 3.4vw, 40px); color: var(--gold-pale);
+  text-shadow: 0 0 24px rgba(240,213,138,.5);
+}
+.zodiac-core .zel { font-family: var(--sans); font-size: 12px; letter-spacing: .18em; text-transform: uppercase; color: var(--amber); margin-top: 6px; }
+
+@media (prefers-reduced-motion: reduce) {
+  /* при отключённых анимациях секции остаются короткими и статичными */
+  .showcase { height: auto !important; }
+  .show-sticky { position: relative; height: auto; min-height: 70vh; padding: 60px 0 !important; }
+}
